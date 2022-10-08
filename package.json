@@ -1,0 +1,29 @@
+{
+  "name": "bot-rate-ve",
+  "version": "0.0.1",
+  "description": "Bot de Telegram con servicio de tarifas en dolares para cambios contra moneda local venezolana",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daniklean/bot-rate-ve.git"
+  },
+  "keywords": [
+    "Bot",
+    "Rate",
+    "Exchange",
+    "Telegraf"
+  ],
+  "author": "Ing. Luis Daniel",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/daniklean/bot-rate-ve/issues"
+  },
+  "homepage": "https://github.com/daniklean/bot-rate-ve#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "telegraf": "^4.10.0"
+  }
+}
