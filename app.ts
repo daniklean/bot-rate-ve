@@ -3,7 +3,13 @@ import { Telegraf, Context } from "telegraf";
 import { Update } from "telegraf/typings/core/types/typegram";
 dotenv.config()
 
-import { average } from "./app/services/exchangedyn";
+import {
+    average, 
+    bcv, 
+    dolarToday, 
+    global66, 
+    yadio 
+} from "./app/services/exchangedyn";
 
 const bot = new Telegraf<Context<Update>>(process.env.TOKEN as string);
 
@@ -11,16 +17,39 @@ bot.start((ctx:Context) => {
     ctx.reply("Iniciado bot")
 })
 
-bot.command('/prom', async (ctx:Context) => {
-    const prom = await average()
+bot.command('/average', async (ctx:Context) => {
+    const averageRate = await average()
     const chatId:any = ctx.chat?.id
-    console.log(await ctx.reply(`Hola ${ctx.from?.first_name}\n\nLa cotización del promedio general para el día de hoy es ${prom} Bolivares`, chatId))
-    //console.log(await ctx.telegram.sendMessage(chatId, prom))
-    //console.log(prom)
+    const nameUser = ctx.from?.first_name
+    console.log(await ctx.reply(`Hola ${nameUser}\n\nLa cotización del promedio general para el día de hoy es ${averageRate} Bolivares`, chatId))
 })
 
 
-const launchNow =async () => {
+bot.command("/yadio", async (ctx:Context) => {
+    const quoteRate = await yadio()
+    const chatId:any = ctx.chat?.id
+    console.log(await ctx.reply(`Colateralización: ${quoteRate?.pair}\nExchange: ${quoteRate?.nameQuote}\nPrecio: ${quoteRate?.quote}\nFecha de Actualización: ${quoteRate?.dateUpdate}`, chatId))
+})
+
+bot.command("/dolartoday", async (ctx:Context) => {
+    const quoteRate = await dolarToday()
+    const chatId:any = ctx.chat?.id
+    console.log(await ctx.reply(`Colateralización: ${quoteRate?.pair}\nExchange: ${quoteRate?.nameQuote}\nPrecio: ${quoteRate?.quote}\nFecha de Actualización: ${quoteRate?.dateUpdate}`, chatId))
+})
+
+bot.command("/global66", async (ctx:Context) => {
+    const quoteRate = await global66()
+    const chatId:any = ctx.chat?.id
+    console.log(await ctx.reply(`Colateralización: ${quoteRate?.pair}\nExchange: ${quoteRate?.nameQuote}\nPrecio: ${quoteRate?.quote}\nFecha de Actualización: ${quoteRate?.dateUpdate}`, chatId))
+})
+
+bot.command("/bcv", async (ctx:Context) => {
+    const quoteRate = await bcv()
+    const chatId:any = ctx.chat?.id
+    console.log(await ctx.reply(`Exchange: ${quoteRate?.nameBCV}\nPrecio: ${quoteRate?.quote}\nFecha de Actualización: ${quoteRate?.dataUpdate}`, chatId))
+})
+
+const launchNow = async () => {
     try {
         const botActive = await bot.launch() 
         console.log("Bot Active")
