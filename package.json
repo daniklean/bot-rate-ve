@@ -1,6 +1,6 @@
 {
   "name": "bot-rate-ve",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Bot de Telegram con servicio de tarifas en dolares para cambios contra moneda local venezolana",
   "main": "app.ts",
   "scripts": {
