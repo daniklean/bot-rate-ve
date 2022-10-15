@@ -1,42 +1,25 @@
 import axios, { AxiosInstance } from "axios";
 import { utc, parseZone } from "moment"
+import { config } from "dotenv";
+import console from "console";
+config()
 
 export const baseRate:AxiosInstance = axios.create({
-    baseURL: "https://api.exchangedyn.com",
+    baseURL: process.env.BASEURI as string,
     responseType: "json",
     responseEncoding: "utf-8",
 })
 
-export const rates = async () => {
-  try {
-    const ratesAll = "/free/quotes/usdves"
-    const responseRates = await (await (await baseRate.get(`${ratesAll}`)))
-    const data = await responseRates.data
-    return data
-  } catch (error) {
-    console.log(`Fallo la petición ${error}`)
-  }
-}
-
-export const average = async () => {
-  try {
-   const totalData = await rates()
-   const averageAll = totalData.average
-   return averageAll
-  } catch (error) {
-    console.log(`Fallo la petición ${error}`)
-  }
-}
-
 export const yadio = async () => {
   try {
-    const totalData = await rates()
-    const pair = await totalData.pair
-    const sources = await totalData.sources[3]
-    const nameQuote = await sources.name
-    const quote = await sources.quote
-    const dateUpdate = await parseZone(utc(sources.last_retrieved)).locale("es").local().format("LLLL")
-    return { pair, nameQuote, quote, dateUpdate}
+    const yadioURI = await ((await baseRate.get(`${process.env.YADIO}`))).data  
+    const nameRate = await yadioURI.name
+    const pairRate = await yadioURI.pair
+    const accessYadio = await yadioURI.sources.Yadio
+    const quote = await accessYadio.quote
+    const yadioUTC = await utc(accessYadio.last_retrieved)
+    const dateUpdate = await parseZone(yadioUTC).locale("es").local().format("LLLL")
+    return { nameRate, pairRate, quote, dateUpdate }
   } catch (error) {
     console.log(`Fallo la petición ${error}`)
   }
@@ -44,13 +27,14 @@ export const yadio = async () => {
 
 export const dolarToday = async () => {
   try {
-    const totalData = await rates()
-    const pair= await totalData.pair
-    const sources = await totalData.sources[4]
-    const nameQuote = await sources.name
-    const quote = await sources.quote
-    const dateUpdate = await parseZone(utc(sources.last_retrieved)).locale("es").local().format("LLLL")
-    return { pair, nameQuote, quote, dateUpdate}
+    const dolarTodayURI = await ((await baseRate.get(`${process.env.DOLARTODAY}`))).data
+    const nameRate = await dolarTodayURI.name
+    const pairRate = await dolarTodayURI.pair
+    const accessDolarToday = dolarTodayURI.sources.DolarToday
+    const quote = await accessDolarToday.quote
+    const dolarTodayUTC =  await utc(accessDolarToday.last_retrieved)
+    const dataUpdate = await parseZone(dolarTodayUTC).locale("es").local().format("LLLL")
+    return { nameRate, pairRate, dataUpdate, quote }
   } catch (error) {
     console.log(`Fallo la petición ${error}`)
   }
@@ -58,13 +42,14 @@ export const dolarToday = async () => {
 
 export const global66 = async () => {
   try {
-    const totalData = await rates()
-    const pair= await totalData.pair
-    const sources = await totalData.sources[0]
-    const nameQuote = await sources.name
-    const quote = await sources.quote
-    const dateUpdate = await parseZone(utc(sources.last_retrieved)).locale("es").local().format("LLLL")
-    return { pair, nameQuote, quote, dateUpdate}
+    const globalURI = await ((await baseRate.get(`${process.env.GLOBAL66}`))).data
+    const nameRate = await globalURI.name
+    const pairRate = await globalURI.pair
+    const accessGlobal = globalURI.sources.Global66
+    const quote = await accessGlobal.quote
+    const globalUTC = await utc(accessGlobal.last_retrieved)
+    const dateUpdate = await parseZone(globalUTC).locale("es").local().format("LLLL")
+    return { quote, dateUpdate, nameRate, pairRate }
   } catch (error) {
     console.log(`Fallo la petición ${error}`)
   }
@@ -72,13 +57,49 @@ export const global66 = async () => {
 
 export const bcv = async () => {
   try {
-    const bcvURL = "/markets/quotes/usdves_bcv"
-    const responseBCV = await (await (await baseRate.get(`${bcvURL}`))).data
-    const nameBCV = await responseBCV.name
-    const quote = await responseBCV.sources.BCV_USD.quote
-    const bcvUTC =  await utc(responseBCV.sources.BCV_USD.last_retrieved)
+    const bcvURI = await ((await baseRate.get(`${process.env.BCV}`))).data
+    const nameRate = await bcvURI.name
+    const accessBCV = bcvURI.sources.BCV
+    const quote = await accessBCV.quote
+    const bcvUTC =  await utc(accessBCV.last_retrieved)
     const dataUpdate = await parseZone(bcvUTC).locale("es").local().format("LLLL")
-    return {nameBCV,dataUpdate,quote}
+    return { nameRate, dataUpdate, quote }
+  } catch (error) {
+    console.log(`Fallo la petición ${error}`)
+  }
+}
+
+export const airtm = async () => {
+  try {
+    const airtmURI = await ((await baseRate.get(`${process.env.AIRTM}`))).data
+    const nameRate = await airtmURI.name
+    const pairRate = await airtmURI.pair
+    const accessAIRTM = airtmURI.sources.AirTM_Market
+    const quote = await accessAIRTM.quote
+    const airtmUTC = await utc(accessAIRTM.last_retrieved)
+    const dateUpdate = await parseZone(airtmUTC).locale("es").local().format("LLLL")
+    const hola = { quote, dateUpdate, nameRate, pairRate }
+  } catch (error) {
+    console.log(`Fallo la petición $ ${error}` )
+  }
+}
+
+export const average = async () => {
+  try {
+
+    const airtmURI = await ((await baseRate.get(`${process.env.AIRTM}`))).data
+    const globalURI = await ((await baseRate.get(`${process.env.GLOBAL66}`))).data
+    const yadioURI = await ((await baseRate.get(`${process.env.YADIO}`))).data
+    const dolarTodayURI = await ((await baseRate.get(`${process.env.DOLARTODAY}`))).data
+
+    const priceAirtm = await parseFloat(airtmURI.sources.AirTM_Market.quote)
+    const priceGlobal = await parseFloat(globalURI.sources.Global66.quote)
+    const priceYadio = await parseFloat(yadioURI.sources.Yadio.quote)
+    const priceDolarToday = await parseFloat(dolarTodayURI.sources.DolarToday.quote)
+    const add = priceAirtm+priceGlobal+priceYadio+priceDolarToday    
+    const avg = add / 4
+    return { avg }
+
   } catch (error) {
     console.log(`Fallo la petición ${error}`)
   }
