@@ -1,13 +1,13 @@
-import axios, { AxiosInstance } from "axios";
-import { utc, parseZone } from "moment"
-import { config } from "dotenv";
-import console from "console";
+import axios, { AxiosInstance } from 'axios'
+import { utc, parseZone } from 'moment'
+import { config } from 'dotenv'
+import console from 'console'
 config()
 
 export const baseRate:AxiosInstance = axios.create({
-    baseURL: process.env.BASEURI as string,
-    responseType: "json",
-    responseEncoding: "utf-8",
+  baseURL: process.env.BASEURI as string,
+  responseType: 'json',
+  responseEncoding: 'utf-8',
 })
 
 export const yadio = async () => {
@@ -18,7 +18,7 @@ export const yadio = async () => {
     const accessYadio = await yadioURI.sources.Yadio
     const quote = await accessYadio.quote
     const yadioUTC = await utc(accessYadio.last_retrieved)
-    const dateUpdate = await parseZone(yadioUTC).locale("es").local().format("LLLL")
+    const dateUpdate = await parseZone(yadioUTC).locale('es').local().format('LLLL')
     return { nameRate, pairRate, quote, dateUpdate }
   } catch (error) {
     console.log(`Fallo la petición ${error}`)
@@ -33,7 +33,7 @@ export const dolarToday = async () => {
     const accessDolarToday = dolarTodayURI.sources.DolarToday
     const quote = await accessDolarToday.quote
     const dolarTodayUTC =  await utc(accessDolarToday.last_retrieved)
-    const dataUpdate = await parseZone(dolarTodayUTC).locale("es").local().format("LLLL")
+    const dataUpdate = await parseZone(dolarTodayUTC).locale('es').local().format('LLLL')
     return { nameRate, pairRate, dataUpdate, quote }
   } catch (error) {
     console.log(`Fallo la petición ${error}`)
@@ -48,7 +48,7 @@ export const global66 = async () => {
     const accessGlobal = globalURI.sources.Global66
     const quote = await accessGlobal.quote
     const globalUTC = await utc(accessGlobal.last_retrieved)
-    const dateUpdate = await parseZone(globalUTC).locale("es").local().format("LLLL")
+    const dateUpdate = await parseZone(globalUTC).locale('es').local().format('LLLL')
     return { quote, dateUpdate, nameRate, pairRate }
   } catch (error) {
     console.log(`Fallo la petición ${error}`)
@@ -62,7 +62,7 @@ export const bcv = async () => {
     const accessBCV = bcvURI.sources.BCV
     const quote = await accessBCV.quote
     const bcvUTC =  await utc(accessBCV.last_retrieved)
-    const dataUpdate = await parseZone(bcvUTC).locale("es").local().format("LLLL")
+    const dataUpdate = await parseZone(bcvUTC).locale('es').local().format('LLLL')
     return { nameRate, dataUpdate, quote }
   } catch (error) {
     console.log(`Fallo la petición ${error}`)
@@ -77,8 +77,8 @@ export const airtm = async () => {
     const accessAIRTM = airtmURI.sources.AirTM_Market
     const quote = await accessAIRTM.quote
     const airtmUTC = await utc(accessAIRTM.last_retrieved)
-    const dateUpdate = await parseZone(airtmUTC).locale("es").local().format("LLLL")
-    const hola = { quote, dateUpdate, nameRate, pairRate }
+    const dateUpdate = await parseZone(airtmUTC).locale('es').local().format('LLLL')
+    return { quote, dateUpdate, nameRate, pairRate }
   } catch (error) {
     console.log(`Fallo la petición $ ${error}` )
   }
