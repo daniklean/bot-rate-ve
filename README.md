@@ -41,7 +41,13 @@ Don't forget to replace the `TOKEN` value with the one given to you by [@BotFath
 Here are some commands needed for daily development on this project.
 
 ```shell
-# Pick up the project and automatically reload if there are changes.
+Raise the build of the project
+npm run build
+
+Pick up test environment
+npm run dev
+
+# Pick up the project compiled.
 npm start
 
 # Run ESlint and Prettier, correcting any errors you can and formatting the code.
