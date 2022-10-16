@@ -1,55 +1,55 @@
-# Chiguire Rates Venezuela: Bot de cotizaciones USD - VES :moneybag:
+# Chiguire Venezuela Quotes: USD - VES Quotes Bot :moneybag:
 
-> Este repositorio contiene el código fuente de **@ChiguirePricesBot** creado por **@Daniklean** para *Telegram.* 
+> This repository contains the source code for **@ChiguirePricesBot** created by **@Daniklean** for *Telegram.*
 >
-> *Desarrollo de bots de Telegram por* [@Daniklean](https://t.me/daniklean). Link directo al bot: [Chiguire Bot](https://t.me/ChiguirePricesBot).
+> *Development of Telegram bots by* [@Daniklean](https://t.me/daniklean). Direct link to the bot: [Chiguire Bot](https://t.me/ChiguirePricesBot).
 >
-> Eventualmente disponible. :smiley:
+> Eventually available. :smiley:
 
-Este repositorio tiene una plantilla personal (de las infinitas posibles) para crear un bot de Telegram utilizando NodeJS y TypeScript. Las principales tecnologías que utilizamos son:
+This repository has a personal template (of the infinite number of possible ones) to create a Telegram bot using NodeJS and TypeScript. The main technologies we use are:
 
-- [NodeJS](https://nodejs.org/es/): entorno de ejecución para JavaScript/TypeScript.
-- [telegraf.js](https://telegraf.js.org/): framework para crear bots de Telegram.
-- [Jest](https://jestjs.io/): framework para escribir tests.
+- [NodeJS](https://nodejs.org/es/): runtime environment for JavaScript/TypeScript.
+- [telegraf.js](https://telegraf.js.org/): Framework to create Telegram bots.
+- [Jest](https://jestjs.io/): framework for writing tests.
 
-## :point_up: ¿Quieres intentar desarrollar un bot? - Prerrequisitos -  *instalar antes de empezar.*
+## :point_up: Do you want to try developing a bot? - Prerequisites - *install before starting.*
 
-Vas a necesitar un IDE o al menos un editor de texto que coloree la sintaxis. Recomendamos utilizar [Visual Studio Code](https://code.visualstudio.com/) - que se lleva muy bien con proyectos TypeScript - enriquecido con los siguientes plugins:
+You're going to need an IDE or at least a text editor that colors the syntax. We recommend using [Visual Studio Code](https://code.visualstudio.com/) - which gets along very well with TypeScript projects - enriched with the following plugins:
 
 - [ESlint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 - [Jest](https://marketplace.visualstudio.com/items?itemName=Orta.vscode-jest)
 
-Para ejecutar el código es necesario tener NodeJS en su versión 16 (`lts/gallium`). Para instalarlo recomendamos utilizar el manejador de versiones [`nvm`](https://github.com/nvm-sh/nvm), aunque también podés hacerlo manualmente siguiendo las instrucciones adecuadas para tu sistema operativo.
+To run the code you need to have NodeJS version 16 (`lts/gallium`). To install it we recommend using the version manager [`nvm`](https://github.com/nvm-sh/nvm), although you can also do it manually by following the appropriate instructions for your operating system.
 
-## :ballot_box_with_check: Configuración inicial del proyecto
+## :ballot_box_with_check: Initial project configuration
 
-Asumiendo que ya configuraste todos los prerrequisitos, estos son los comandos que deberías ejecutar la primera vez que trabajes tú proyecto:
+Assuming you've already set up all the prerequisites, these are the commands you should run the first time you work on your project:
 
 ```shell
-# Copia los nombres de variables de entorno en tú archivo .env que son necesarias para comunicarse con la Bot API de Telegram.
+# Copy the environment variable names in your .env file that are needed to communicate with the Telegram Bot API.
 cp .env.example .env
-## Recuerda, que debes ingresar tus credenciales.
-# Instala las dependencias Node del proyecto.
-npm install
+## Remember, you must enter your credentials.
+# Install the project's Node dependencies.
+install npm
 ```
 
-¡No te olvides de reemplazar el valor del `TOKEN` por el que te dio [@BotFather](https://t.me/botfather).
+Don't forget to replace the `TOKEN` value with the one given to you by [@BotFather](https://t.me/botfather).
 
-## :woman_technologist: :man_technologist: Comandos útiles para el día a día
+## :woman_technologist: :man_technologist: Useful commands for everyday use
 
-A continuación, algunos comandos necesarios para el desarrollo diario en este proyecto.
+Here are some commands needed for daily development on this project.
 
 ```shell
-# Levanta el proyecto y recarga automáticamente si hay cambios.
+# Pick up the project and automatically reload if there are changes.
 npm start
 
-# Corre ESlint y Prettier, corrigiendo los errores que pueda y formateando el código.
+# Run ESlint and Prettier, correcting any errors you can and formatting the code.
 npm run ling
 
-# Ejecuta los tests una sola vez.
+# Run the tests only once.
 npm test
 
-# Ejecuta los tests y se queda esperando por cambios.
+# Run the tests and wait for changes.
 npm test:watch
 ```
