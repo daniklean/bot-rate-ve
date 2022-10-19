@@ -1,7 +1,6 @@
 import axios, { AxiosInstance } from 'axios'
 import { utc, parseZone } from 'moment'
 import { config } from 'dotenv'
-import console from 'console'
 config()
 
 export const baseRate:AxiosInstance = axios.create({
@@ -9,6 +8,18 @@ export const baseRate:AxiosInstance = axios.create({
   responseType: 'json',
   responseEncoding: 'utf-8',
 })
+
+export const airtm = async () => {
+  try {
+    const airtmURI = await ((await baseRate.get(`${process.env.AIRTM}`))).data  
+    const { pair } = airtmURI
+    const { name:nameRate, quote:quote, last_retrieved: dateUpdate} = airtmURI.sources.AirTM_Market
+    return { nameRate, pair, quote, dateUpdate }
+  } catch (error) {
+    console.log(`Fallo la petición ${error}`)
+  }
+}
+airtm()
 
 export const yadio = async () => {
   try {
@@ -66,21 +77,6 @@ export const bcv = async () => {
     return { nameRate, dataUpdate, quote }
   } catch (error) {
     console.log(`Fallo la petición ${error}`)
-  }
-}
-
-export const airtm = async () => {
-  try {
-    const airtmURI = await ((await baseRate.get(`${process.env.AIRTM}`))).data
-    const nameRate = await airtmURI.name
-    const pairRate = await airtmURI.pair
-    const accessAIRTM = airtmURI.sources.AirTM_Market
-    const quote = await accessAIRTM.quote
-    const airtmUTC = await utc(accessAIRTM.last_retrieved)
-    const dateUpdate = await parseZone(airtmUTC).locale('es').local().format('LLLL')
-    return { quote, dateUpdate, nameRate, pairRate }
-  } catch (error) {
-    console.log(`Fallo la petición $ ${error}` )
   }
 }
 
