@@ -28,10 +28,14 @@ Assuming you've already set up all the prerequisites, these are the commands you
 
 ```shell
 # Copy the environment variable names in your .env file that are needed to communicate with the Telegram Bot API.
+
 cp .env.example .env
+
 ## Remember, you must enter your credentials.
+
 # Install the project's Node dependencies.
-install npm
+
+npm imstall
 ```
 
 Don't forget to replace the `TOKEN` value with the one given to you by [@BotFather](https://t.me/botfather).
@@ -41,7 +45,13 @@ Don't forget to replace the `TOKEN` value with the one given to you by [@BotFath
 Here are some commands needed for daily development on this project.
 
 ```shell
-# Pick up the project and automatically reload if there are changes.
+Raise the build of the project
+npm run build
+
+Pick up test environment
+npm run dev
+
+# Pick up the project compiled.
 npm start
 
 # Run ESlint and Prettier, correcting any errors you can and formatting the code.
