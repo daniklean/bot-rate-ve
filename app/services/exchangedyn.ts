@@ -13,24 +13,20 @@ export const airtm = async () => {
   try {
     const airtmURI = await ((await baseRate.get(`${process.env.AIRTM}`))).data  
     const { pair } = airtmURI
-    const { name:nameRate, quote:quote, last_retrieved: dateUpdate} = airtmURI.sources.AirTM_Market
-    return { nameRate, pair, quote, dateUpdate }
+    const { name, quote, last_retrieved: dateUpdate} = airtmURI.sources.AirTM_Market
+    const dateLocal = parseZone(utc(dateUpdate)).locale('es').local().format('LLLL')
+    return { name, pair, quote, dateLocal }
   } catch (error) {
     console.log(`Fallo la petición ${error}`)
   }
-}
-airtm()
-
+} 
 export const yadio = async () => {
   try {
     const yadioURI = await ((await baseRate.get(`${process.env.YADIO}`))).data  
-    const nameRate = await yadioURI.name
-    const pairRate = await yadioURI.pair
-    const accessYadio = await yadioURI.sources.Yadio
-    const quote = await accessYadio.quote
-    const yadioUTC = await utc(accessYadio.last_retrieved)
-    const dateUpdate = await parseZone(yadioUTC).locale('es').local().format('LLLL')
-    return { nameRate, pairRate, quote, dateUpdate }
+    const { pair } = yadioURI
+    const { name, quote, last_retrieved:dateUpdate } = yadioURI.sources.Yadio
+    const dateLocal = parseZone(utc(dateUpdate)).locale('es').local().format('LLLL')
+    return {pair, name, quote, dateLocal }
   } catch (error) {
     console.log(`Fallo la petición ${error}`)
   }
@@ -39,13 +35,10 @@ export const yadio = async () => {
 export const dolarToday = async () => {
   try {
     const dolarTodayURI = await ((await baseRate.get(`${process.env.DOLARTODAY}`))).data
-    const nameRate = await dolarTodayURI.name
-    const pairRate = await dolarTodayURI.pair
-    const accessDolarToday = dolarTodayURI.sources.DolarToday
-    const quote = await accessDolarToday.quote
-    const dolarTodayUTC =  await utc(accessDolarToday.last_retrieved)
-    const dataUpdate = await parseZone(dolarTodayUTC).locale('es').local().format('LLLL')
-    return { nameRate, pairRate, dataUpdate, quote }
+    const { pair } = dolarTodayURI
+    const { name, quote, last_retrieved: dataUpdate } = dolarTodayURI.sources.DolarToday
+    const dateLocal = parseZone(utc(dataUpdate)).locale('es').local().format('LLLL')
+    return { pair, name, dateLocal, quote }
   } catch (error) {
     console.log(`Fallo la petición ${error}`)
   }
@@ -54,13 +47,10 @@ export const dolarToday = async () => {
 export const global66 = async () => {
   try {
     const globalURI = await ((await baseRate.get(`${process.env.GLOBAL66}`))).data
-    const nameRate = await globalURI.name
-    const pairRate = await globalURI.pair
-    const accessGlobal = globalURI.sources.Global66
-    const quote = await accessGlobal.quote
-    const globalUTC = await utc(accessGlobal.last_retrieved)
-    const dateUpdate = await parseZone(globalUTC).locale('es').local().format('LLLL')
-    return { quote, dateUpdate, nameRate, pairRate }
+    const { pair } = globalURI
+    const { name, quote, last_retrieved:dataUpdate } = globalURI.sources.Global66
+    const dateLocal = parseZone(utc(dataUpdate)).locale('es').local().format('LLLL')
+    return { pair, name, quote, dateLocal}
   } catch (error) {
     console.log(`Fallo la petición ${error}`)
   }
@@ -69,12 +59,10 @@ export const global66 = async () => {
 export const bcv = async () => {
   try {
     const bcvURI = await ((await baseRate.get(`${process.env.BCV}`))).data
-    const nameRate = await bcvURI.name
-    const accessBCV = bcvURI.sources.BCV
-    const quote = await accessBCV.quote
-    const bcvUTC =  await utc(accessBCV.last_retrieved)
-    const dataUpdate = await parseZone(bcvUTC).locale('es').local().format('LLLL')
-    return { nameRate, dataUpdate, quote }
+    const { pair, name } = bcvURI
+    const { quote, last_retrieved: dataUpdate } = bcvURI.sources.BCV
+    const dateLocal = parseZone(utc(dataUpdate)).locale('es').local().format('LLLL')
+    return { pair ,name, quote, dateLocal  }
   } catch (error) {
     console.log(`Fallo la petición ${error}`)
   }
@@ -88,10 +76,10 @@ export const average = async () => {
     const yadioURI = await ((await baseRate.get(`${process.env.YADIO}`))).data
     const dolarTodayURI = await ((await baseRate.get(`${process.env.DOLARTODAY}`))).data
 
-    const priceAirtm = await parseFloat(airtmURI.sources.AirTM_Market.quote)
-    const priceGlobal = await parseFloat(globalURI.sources.Global66.quote)
-    const priceYadio = await parseFloat(yadioURI.sources.Yadio.quote)
-    const priceDolarToday = await parseFloat(dolarTodayURI.sources.DolarToday.quote)
+    const priceAirtm = parseFloat(airtmURI.sources.AirTM_Market.quote)
+    const priceGlobal = parseFloat(globalURI.sources.Global66.quote)
+    const priceYadio = parseFloat(yadioURI.sources.Yadio.quote)
+    const priceDolarToday = parseFloat(dolarTodayURI.sources.DolarToday.quote)
     const add = priceAirtm+priceGlobal+priceYadio+priceDolarToday    
     const avg = add / 4
     return { avg }
