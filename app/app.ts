@@ -1,9 +1,10 @@
-import dotenv from 'dotenv'
+import { config } from 'dotenv'
 import { Telegraf, Context } from 'telegraf'
 import { Update } from 'telegraf/typings/core/types/typegram'
-dotenv.config()
+config()
 
 import { 
+  airtm,
   average, 
   bcv, 
   dolarToday, 
@@ -28,26 +29,32 @@ bot.command('/average', async (ctx:Context) => {
 bot.command('/yadio', async (ctx:Context) => {
   const quoteRate = await yadio()
   const chatId:any = ctx.chat?.id
-  console.log(await ctx.reply(`Colateralización: ${quoteRate?.pairRate}\nExchange: ${quoteRate?.nameRate}\nPrecio: ${quoteRate?.quote}\nFecha de Actualización: ${quoteRate?.dateUpdate}`, chatId))
+  console.log(await ctx.reply(`Colateralización: ${quoteRate?.pair}\nExchange: ${quoteRate?.name}\nPrecio: ${quoteRate?.quote}\nFecha de Actualización: ${quoteRate?.dateLocal}`, chatId))
 })
 
 bot.command('/dolartoday', async (ctx:Context) => {
   const quoteRate = await dolarToday()
   const chatId:any = ctx.chat?.id
-  console.log(await ctx.reply(`Colateralización: ${quoteRate?.pairRate}\nExchange: ${quoteRate?.nameRate}\nPrecio: ${quoteRate?.quote}\nFecha de Actualización: ${quoteRate?.dataUpdate}`, chatId))
+  console.log(await ctx.reply(`Colateralización: ${quoteRate?.pair}\nExchange: ${quoteRate?.name}\nPrecio: ${quoteRate?.quote}\nFecha de Actualización: ${quoteRate?.dateLocal}`, chatId))
 })
 
 bot.command('/global66', async (ctx:Context) => {
   const quoteRate = await global66()
   const chatId:any = ctx.chat?.id
-  console.log(await ctx.reply(`Colateralización: ${quoteRate?.pairRate}\nExchange: ${quoteRate?.nameRate}\nPrecio: ${quoteRate?.quote}\nFecha de Actualización: ${quoteRate?.dateUpdate}`, chatId))
+  console.log(await ctx.reply(`Colateralización: ${quoteRate?.pair}\nExchange: ${quoteRate?.name}\nPrecio: ${quoteRate?.quote}\nFecha de Actualización: ${quoteRate?.dateLocal}`, chatId))
 })
 
 bot.command('/bcv', async (ctx:Context) => {
   const quoteRate = await bcv()
   const chatId:any = ctx.chat?.id
-  console.log(await ctx.reply(`Exchange: ${quoteRate?.nameRate}\nPrecio: ${quoteRate?.quote}\nFecha de Actualización: ${quoteRate?.dataUpdate}`, chatId))
+  console.log(await ctx.reply(`Colateralización: ${quoteRate?.pair}\nExchange: ${quoteRate?.name}\nPrecio: ${quoteRate?.quote}\nFecha de Actualización: ${quoteRate?.dateLocal}`, chatId))
 })
+
+bot.command('/airtm', async (ctx:Context) => {
+  const quoteRate = await airtm()
+  const chatId:any = ctx.chat?.id
+  console.log(await ctx.reply(`Colateralización: ${quoteRate?.pair}\nExchange: ${quoteRate?.name}\nPrecio: ${quoteRate?.quote}\nFecha de Actualización: ${quoteRate?.dateLocal}`, chatId))
+}) 
 
 const launchNow = async () => {
   try {
