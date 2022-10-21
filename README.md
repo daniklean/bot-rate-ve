@@ -1,5 +1,7 @@
 # Chiguire Venezuela Quotes: USD - VES Quotes Bot :moneybag:
 
+[![Chigüire Bot CI](https://github.com/daniklean/bot-rate-ve/actions/workflows/railway.yml/badge.svg?branch=main)](https://github.com/daniklean/bot-rate-ve/actions/workflows/railway.yml)
+
 > This repository contains the source code for **@ChiguirePricesBot** created by **@Daniklean** for *Telegram.*
 >
 > *Development of Telegram bots by* [@Daniklean](https://t.me/daniklean). Direct link to the bot: [Chiguire Bot](https://t.me/ChiguirePricesBot).
@@ -35,7 +37,7 @@ cp .env.example .env
 
 # Install the project's Node dependencies.
 
-npm imstall
+npm install
 ```
 
 Don't forget to replace the `TOKEN` value with the one given to you by [@BotFather](https://t.me/botfather).
@@ -45,21 +47,21 @@ Don't forget to replace the `TOKEN` value with the one given to you by [@BotFath
 Here are some commands needed for daily development on this project.
 
 ```shell
-Raise the build of the project
+# Raise the build of the project
 npm run build
 
-Pick up test environment
+$ Pick up test environment
 npm run dev
 
 # Pick up the project compiled.
 npm start
 
 # Run ESlint and Prettier, correcting any errors you can and formatting the code.
-npm run ling
+npm run eslint
 
-# Run the tests only once.
+# Run the tests only once. //SOON
 npm test
 
-# Run the tests and wait for changes.
+# Run the tests and wait for changes. // SOON
 npm test:watch
 ```
