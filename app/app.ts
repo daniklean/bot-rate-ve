@@ -23,7 +23,7 @@ bot.command('/average', async (ctx:Context) => {
   const averageRate = await average()
   const chatId:any = ctx.chat?.id
   const nameUser = ctx.from?.first_name
-  console.log(await ctx.reply(`Hola ${nameUser}\n\nCotización Actual: ${averageRate?.avg} Bs.D\n\n${averageRate?.today}`, chatId))
+  console.log(await ctx.reply(`Hola ${nameUser}\n\nCotización Actual: ${averageRate?.avgToFixed} Bs.D\n\n${averageRate?.today}`, chatId))
 })
 
 bot.command('/yadio', async (ctx:Context) => {
@@ -71,3 +71,6 @@ const launchNow = async () => {
   }
 } 
 launchNow()
+
+process.once('SIGINT', () => bot.stop ('SIGINT'))
+process.once('SIGTERM', () => bot.stop ('SIGTERM'))
