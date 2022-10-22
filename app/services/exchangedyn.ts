@@ -13,7 +13,7 @@ export const airtm = async () => {
   try {
     const airtmURI = await ((await baseRate.get(`${process.env.AIRTM}`))).data  
     const { pair } = airtmURI
-    const { name, quote, last_retrieved: dataUpdate} =  airtmURI.sources.AirTM_Market
+    const { name, quote, last_retrieved: dataUpdate} =  airtmURI.sources.Airtm_Market
     const parseQuote = parseFloat(quote).toFixed(4)
     const dateLocal = parseZone(utc(dataUpdate)).locale('es').utcOffset('-04:00').format('LL [-] hh:mm A')
     return { name, pair, parseQuote, dateLocal }
@@ -80,7 +80,7 @@ export const average = async () => {
     const dolarTodayURI = await ((await baseRate.get(`${process.env.DOLARTODAY}`))).data
     const global66URI = await ((await baseRate.get(`${process.env.GLOBAL66}`))).data
   
-    const priceAirtm = parseFloat(airtmURI.sources.AirTM_Market.quote)
+    const priceAirtm = parseFloat(airtmURI.sources.Airtm_Market.quote)
     const priceYadio = parseFloat(yadioURI.sources.Yadio.quote)
     const priceDolarToday = parseFloat(dolarTodayURI.sources.DolarToday.quote)
     const priceGlobal66 = parseFloat(global66URI.sources.Global66.quote)
