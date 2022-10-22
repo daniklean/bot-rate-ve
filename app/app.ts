@@ -5,6 +5,7 @@ config()
 
 import { 
   airtm,
+  airtmArs,
   average, 
   bcv, 
   dolarToday, 
@@ -61,6 +62,15 @@ bot.help((ctx:Context) => {
   const helpString = 'Tienes la lista de comandos\n\n/average: Promedio Chigüire Rates\n/yadio: Promedio de Yadio.io\n/bcv: Promedio del Banco Central de Venzuela\n/airtm: Promedio de airtm (Mercado)\n/global66: Promedio de Globall 66\n/dolartoday: Promedio de DolarToday'
   ctx.reply(`${helpString}`, chatId) 
 })
+
+// Argentine Quotes Commands
+
+bot.command('/airtmARS', async (ctx:Context) => {
+  const quoteRate = await airtmArs()
+  const chatId:any = ctx.chat?.id
+  console.log(await ctx.reply(`Par: ${quoteRate?.pair}\nExchange: ${quoteRate?.name}\nPrecio: ${quoteRate?.parseQuote} ARS\nActualización: ${quoteRate?.dateLocal}`, chatId))
+}) 
+
 const launchNow = async () => {
   try {
     const botActive = await bot.launch() 

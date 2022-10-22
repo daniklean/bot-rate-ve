@@ -11,7 +11,7 @@ export const baseRate:AxiosInstance = axios.create({
 
 export const airtm = async () => {
   try {
-    const airtmURI = await ((await baseRate.get(`${process.env.AIRTM}`))).data  
+    const airtmURI = await ((await baseRate.get(`${process.env.AIRTM as string}`))).data  
     const { pair } = airtmURI
     const { name, quote, last_retrieved: dataUpdate} =  airtmURI.sources.Airtm_Market
     const parseQuote = parseFloat(quote).toFixed(4)
@@ -23,7 +23,7 @@ export const airtm = async () => {
 }
 export const yadio = async () => {
   try {
-    const yadioURI = await ((await baseRate.get(`${process.env.YADIO}`))).data  
+    const yadioURI = await ((await baseRate.get(`${process.env.YADIO as string}`))).data  
     const { pair } = yadioURI
     const { name, quote, last_retrieved:dataUpdate } = yadioURI.sources.Yadio
     const parseQuote = parseFloat(quote).toFixed(4)
@@ -36,7 +36,7 @@ export const yadio = async () => {
 
 export const dolarToday = async () => {
   try {
-    const dolarTodayURI = await ((await baseRate.get(`${process.env.DOLARTODAY}`))).data
+    const dolarTodayURI = await ((await baseRate.get(`${process.env.DOLARTODAY as string}`))).data
     const { pair } = dolarTodayURI
     const { name, quote, last_retrieved: dataUpdate } = dolarTodayURI.sources.DolarToday
     const parseQuote = parseFloat(quote).toFixed(4)
@@ -49,7 +49,7 @@ export const dolarToday = async () => {
 
 export const global66 = async () => {
   try {
-    const globalURI = await ((await baseRate.get(`${process.env.GLOBAL66}`))).data
+    const globalURI = await ((await baseRate.get(`${process.env.GLOBAL66 as string}`))).data
     const { pair } = globalURI
     const { name, quote, last_retrieved:dataUpdate } = globalURI.sources.Global66
     const parseQuote = parseFloat(quote).toFixed(4)
@@ -62,7 +62,7 @@ export const global66 = async () => {
 
 export const bcv = async () => {
   try {
-    const bcvURI = await ((await baseRate.get(`${process.env.BCV}`))).data
+    const bcvURI = await ((await baseRate.get(`${process.env.BCV as string}`))).data
     const { pair, name } = bcvURI
     const { quote, last_retrieved: dataUpdate } = bcvURI.sources.BCV
     const parseQuote = parseFloat(quote).toFixed(4)
@@ -75,10 +75,10 @@ export const bcv = async () => {
 export const average = async () => {
   try {
 
-    const airtmURI = await ((await baseRate.get(`${process.env.AIRTM}`))).data
-    const yadioURI = await ((await baseRate.get(`${process.env.YADIO}`))).data
-    const dolarTodayURI = await ((await baseRate.get(`${process.env.DOLARTODAY}`))).data
-    const global66URI = await ((await baseRate.get(`${process.env.GLOBAL66}`))).data
+    const airtmURI = await ((await baseRate.get(`${process.env.AIRTM as string}`))).data
+    const yadioURI = await ((await baseRate.get(`${process.env.YADIO as string}`))).data
+    const dolarTodayURI = await ((await baseRate.get(`${process.env.DOLARTODAY as string}`))).data
+    const global66URI = await ((await baseRate.get(`${process.env.GLOBAL66 as string}`))).data
   
     const priceAirtm = parseFloat(airtmURI.sources.Airtm_Market.quote)
     const priceYadio = parseFloat(yadioURI.sources.Yadio.quote)
@@ -90,6 +90,22 @@ export const average = async () => {
     const today = parseZone(utc(now())).utcOffset('-04:00').locale('es').format('LL [-] hh:mm A')
 
     return { avgToFixed, today }
+
+  } catch (error) {
+    console.log(`Fallo la petición ${error}`)
+  }
+}
+
+// Argentine Quotes 
+
+export const airtmArs = async () => {
+  try {
+    const airtmArsURI = ((await baseRate.get(`${process.env.AIRTM_ARS as string}`))).data
+    const { pair, name } = airtmArsURI
+    const { quote, last_retrieved: dataUpdate } = airtmArsURI.sources.Airtm_Market
+    const parseQuote = parseFloat(quote).toFixed(4)
+    const dateLocal = parseZone(utc(dataUpdate)).locale('es').utcOffset('-03:00').format('LL [-] hh:mm A')
+    return { pair ,name, parseQuote, dateLocal  } 
 
   } catch (error) {
     console.log(`Fallo la petición ${error}`)
