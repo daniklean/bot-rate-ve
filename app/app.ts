@@ -65,10 +65,10 @@ bot.help((ctx:Context) => {
 
 // Argentine Quotes Commands
 
-bot.command('/airtmARS', async (ctx:Context) => {
+bot.command('[/airtmARS, /airtmars]', async (ctx:Context) => {
   const quoteRate = await airtmArs()
   const chatId:any = ctx.chat?.id
-  console.log(await ctx.reply(`Par: ${quoteRate?.pair}\nExchange: ${quoteRate?.name}\nPrecio: ${quoteRate?.parseQuote} ARS\nActualización: ${quoteRate?.dateLocal}`, chatId))
+  console.log(await ctx.reply(`Par: ${quoteRate?.pair}\nExchange: ${quoteRate?.name}\nPrecio: ${quoteRate?.parseQuote} ARS\nActualización: ${quoteRate?.dateLocal} Hora local Argentina`, chatId))
 }) 
 
 const launchNow = async () => {
