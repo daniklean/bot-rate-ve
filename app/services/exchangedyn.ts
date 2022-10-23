@@ -105,7 +105,7 @@ export const airtmArs = async () => {
     const { quote, last_retrieved: dataUpdate } = airtmArsURI.sources.Airtm_Market
     const parseQuote = parseFloat(quote).toFixed(4)
     const dateLocal = parseZone(utc(dataUpdate)).locale('es').utcOffset('-03:00').format('LL [-] hh:mm A')
-    return { pair ,name, parseQuote, dateLocal  } 
+    return { pair ,name, parseQuote, dateLocal  }  
 
   } catch (error) {
     console.log(`Fallo la petición ${error}`)
