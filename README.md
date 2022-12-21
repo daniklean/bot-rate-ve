@@ -50,7 +50,7 @@ Here are some commands needed for daily development on this project.
 # Raise the build of the project
 npm run build
 
-$ Pick up test environment
+# Pick up test environment
 npm run dev
 
 # Pick up the project compiled.
