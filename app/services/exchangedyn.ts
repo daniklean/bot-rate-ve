@@ -75,14 +75,15 @@ export const bcv = async () => {
 export const average = async () => {
   try {
 
-    const airtmURI = await ((await baseRate.get(`${process.env.AIRTM as string}`))).data
+    const global66URI = await ((await baseRate.get(`${process.env.GLOBAL66 as string}`))).data
     const yadioURI = await ((await baseRate.get(`${process.env.YADIO as string}`))).data
     const dolarTodayURI = await ((await baseRate.get(`${process.env.DOLARTODAY as string}`))).data
   
-    const priceAirtm = parseFloat(airtmURI.sources.Airtm_Market.quote)
+    //const priceAirtm = parseFloat(airtmURI.sources.Airtm_Market.quote)
     const priceYadio = parseFloat(yadioURI.sources.Yadio.quote)
     const priceDolarToday = parseFloat(dolarTodayURI.sources.DolarToday.quote)
-    const avg = (priceAirtm+priceYadio+priceDolarToday) / 3
+    const priceGlobal66 = parseFloat(global66URI.sources.Global66.quote)
+    const avg = (priceYadio+priceDolarToday+priceGlobal66) / 3
     const avgToFixed = avg.toFixed(4)
 
     const today = parseZone(utc(now())).utcOffset('-04:00').locale('es').format('LL [-] hh:mm A')
