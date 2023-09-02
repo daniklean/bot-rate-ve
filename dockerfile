@@ -10,7 +10,7 @@ COPY . .
 
 RUN npm i 
 
-RUN npm build
+RUN npm run build
 
 EXPOSE 7000
 
